@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FitBuddy Result</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+
+            margin: 0;
+
+            padding: 30px;
+
+            font-family: Arial, sans-serif;
+
+            background: #111;
+
+            color: white;
+        }
+
+        .container {
+
+            max-width: 1000px;
+
+            margin: auto;
+        }
+
+        .card {
+
+            background: #1f1f1f;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+            border-radius: 15px;
+
+            box-shadow:
+                0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+
+            color: #20c997;
+
+            margin-bottom: 30px;
+        }
+
+        h2 {
+
+            color: #20c997;
+
+            margin-top: 0;
+        }
+
+        .user-info {
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(180px, 1fr));
+
+            gap: 15px;
+        }
+
+        .info {
+
+            background: #292929;
+
+            padding: 15px;
+
+            border-radius: 10px;
+        }
+
+        .info strong {
+
+            color: #20c997;
+        }
+
+        pre {
+
+            white-space: pre-wrap;
+
+            word-wrap: break-word;
+
+            font-family: Arial, sans-serif;
+
+            line-height: 1.7;
+
+            font-size: 15px;
+
+            color: #f5f5f5;
+
+            margin: 0;
+        }
+
+        textarea {
+
+            width: 100%;
+
+            min-height: 120px;
+
+            padding: 15px;
+
+            border-radius: 8px;
+
+            border: 1px solid #444;
+
+            background: #292929;
+
+            color: white;
+
+            resize: vertical;
+
+            font-size: 15px;
+
+            font-family: Arial, sans-serif;
+
+            outline: none;
+        }
+
+        textarea:focus {
+
+            border-color: #20c997;
+        }
+
+        textarea::placeholder {
+
+            color: #aaa;
+        }
+
+        button {
+
+            margin-top: 15px;
+
+            padding: 12px 22px;
+
+            background: #20c997;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 8px;
+
+            cursor: pointer;
+
+            font-weight: bold;
+
+            font-size: 15px;
+        }
+
+        button:hover {
+
+            background: #18a77b;
+        }
+
+        a {
+
+            color: #20c997;
+
+            text-decoration: none;
+        }
+
+        a:hover {
+
+            text-decoration: underline;
+        }
+
+        .success {
+
+            background: #174d38;
+
+            border: 1px solid #20c997;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            color: #d8fff1;
+        }
+
+        .error {
+
+            background: #4d1717;
+
+            border: 1px solid #ff6666;
+
+            padding: 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            color: #ffdede;
+        }
+
+        /* UPDATED PLAN */
+
+        .updated-card {
+
+            background: #172d27;
+
+            border: 2px solid #20c997;
+
+            box-shadow:
+                0 0 20px rgba(32,201,151,0.15);
+        }
+
+        .updated-title {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 10px;
+
+            color: #20c997;
+        }
+
+        .updated-label {
+
+            display: inline-block;
+
+            background: #20c997;
+
+            color: #111;
+
+            padding: 5px 10px;
+
+            border-radius: 20px;
+
+            font-size: 12px;
+
+            font-weight: bold;
+
+            margin-bottom: 15px;
+        }
+
+        .feedback-card {
+
+            border: 1px solid #333;
+        }
+
+        .hint {
+
+            color: #aaa;
+
+            font-size: 14px;
+
+            margin-bottom: 15px;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h1>💪 Your FitBuddy Plan</h1>
+
+
+    <!-- SUCCESS MESSAGE -->
+
+    {% if message %}
+
+    <div class="success">
+
+        ✅ {{ message }}
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- ERROR MESSAGE -->
+
+    {% if error %}
+
+    <div class="error">
+
+        ⚠️ {{ error }}
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- USER INFORMATION -->
+
+    <div class="card">
+
+        <h2>👤 User Information</h2>
+
+        <div class="user-info">
+
+            <div class="info">
+
+                <strong>Name</strong><br>
+
+                {{ username }}
+
+            </div>
+
+
+            <div class="info">
+
+                <strong>User ID</strong><br>
+
+                {{ user_id }}
+
+            </div>
+
+
+            <div class="info">
+
+                <strong>Age</strong><br>
+
+                {{ age }}
+
+            </div>
+
+
+            <div class="info">
+
+                <strong>Weight</strong><br>
+
+                {{ weight }} kg
+
+            </div>
+
+
+            <div class="info">
+
+                <strong>Goal</strong><br>
+
+                {{ goal }}
+
+            </div>
+
+
+            <div class="info">
+
+                <strong>Intensity</strong><br>
+
+                {{ intensity }}
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- ORIGINAL WORKOUT PLAN -->
+
+    {% if workout_plan %}
+
+    <div class="card">
+
+        <h2>🏋️ 7-Day Workout Plan</h2>
+
+        <pre>{{ workout_plan }}</pre>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- NUTRITION TIP -->
+
+    {% if nutrition_tip %}
+
+    <div class="card">
+
+        <h2>🥗 Nutrition / Recovery Tip</h2>
+
+        <p>
+            {{ nutrition_tip }}
+        </p>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- UPDATED PLAN -->
+
+    {% if updated_plan %}
+
+    <div class="card updated-card">
+
+        <div class="updated-label">
+            AI UPDATED
+        </div>
+
+        <h2 class="updated-title">
+            🔄 Updated Workout Plan
+        </h2>
+
+        <p class="hint">
+            This plan has been modified based on your feedback.
+        </p>
+
+        <pre>{{ updated_plan }}</pre>
+
+    </div>
+
+    {% endif %}
+
+
+    <!-- FEEDBACK FORM -->
+
+    <div class="card feedback-card">
+
+        <h2>💬 Update Your Plan</h2>
+
+        <p>
+            Tell FitBuddy what you want to change in your plan.
+        </p>
+
+        <p class="hint">
+            Example: Make the activities easier and include more recovery time.
+        </p>
+
+        <form action="/submit-feedback"
+              method="post">
+
+            <input
+                type="hidden"
+                name="user_id"
+                value="{{ user_id }}"
+            >
+
+            <textarea
+                name="feedback"
+                placeholder="Enter your feedback here..."
+                required
+            ></textarea>
+
+            <button type="submit">
+                🔄 Update My Plan
+            </button>
+
+        </form>
+
+    </div>
+
+
+    <!-- NAVIGATION -->
+
+    <p>
+        <a href="/">
+            ← Create New Plan
+        </a>
+    </p>
+
+    <p>
+        <a href="/view-all-users">
+            📊 Admin Dashboard
+        </a>
+    </p>
+
+</div>
+
+</body>
+
+</html>

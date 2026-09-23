@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>FitBuddy Admin</title>
+
+    <style>
+
+        body {
+
+            margin: 0;
+
+            padding: 30px;
+
+            font-family: Arial, sans-serif;
+
+            background: #111;
+
+            color: white;
+        }
+
+        .container {
+
+            max-width: 1400px;
+
+            margin: auto;
+        }
+
+        h1 {
+            color: #20c997;
+        }
+
+        .user-card {
+
+            background: #202020;
+
+            padding: 25px;
+
+            margin-bottom: 25px;
+
+            border-radius: 15px;
+
+            overflow-x: auto;
+        }
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+        }
+
+        th,
+        td {
+
+            border: 1px solid #444;
+
+            padding: 12px;
+
+            text-align: left;
+
+            vertical-align: top;
+        }
+
+        th {
+
+            background: #20c997;
+
+            color: white;
+        }
+
+        td {
+
+            background: #292929;
+        }
+
+        pre {
+
+            white-space: pre-wrap;
+
+            max-height: 350px;
+
+            overflow-y: auto;
+        }
+
+        .delete-btn {
+
+            background: #dc3545;
+
+            color: white;
+
+            border: none;
+
+            padding: 10px 15px;
+
+            border-radius: 6px;
+
+            cursor: pointer;
+        }
+
+        .delete-btn:hover {
+            opacity: 0.8;
+        }
+
+        a {
+            color: #20c997;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+    <h1>📊 FitBuddy Admin Dashboard</h1>
+
+    <p>
+        Total Users: {{ users|length }}
+    </p>
+
+
+    {% for user in users %}
+
+    <div class="user-card">
+
+        <table>
+
+            <tr>
+
+                <th>User ID</th>
+
+                <td>
+                    {{ user.user_id }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <th>Name</th>
+
+                <td>
+                    {{ user.username }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <th>Age</th>
+
+                <td>
+                    {{ user.age }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <th>Weight</th>
+
+                <td>
+                    {{ user.weight }} kg
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <th>Goal</th>
+
+                <td>
+                    {{ user.goal }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <th>Intensity</th>
+
+                <td>
+                    {{ user.intensity }}
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <th>Original Plan</th>
+
+                <td>
+
+                    <pre>
+{{ user.original_plan }}
+                    </pre>
+
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <th>Updated Plan</th>
+
+                <td>
+
+                    {% if user.updated_plan %}
+
+                    <pre>
+{{ user.updated_plan }}
+                    </pre>
+
+                    {% else %}
+
+                    No updated plan yet.
+
+                    {% endif %}
+
+                </td>
+
+            </tr>
+
+
+            <tr>
+
+                <th>Action</th>
+
+                <td>
+
+                    <form
+                        action="/delete-user"
+                        method="post"
+                        onsubmit="return confirm('Delete this user?');"
+                    >
+
+                        <input
+                            type="hidden"
+                            name="user_id"
+                            value="{{ user.user_id }}"
+                        >
+
+                        <button
+                            class="delete-btn"
+                            type="submit"
+                        >
+                            Delete User
+                        </button>
+
+                    </form>
+
+                </td>
+
+            </tr>
+
+        </table>
+
+    </div>
+
+    {% else %}
+
+    <p>
+        No users found.
+    </p>
+
+    {% endfor %}
+
+
+    <p>
+
+        <a href="/">
+            ← Back to FitBuddy
+        </a>
+
+    </p>
+
+</div>
+
+</body>
+
+</html>
